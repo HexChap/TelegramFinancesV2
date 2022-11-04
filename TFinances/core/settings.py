@@ -1,6 +1,7 @@
 import asyncio
 from pathlib import Path
 
+from loguru import logger
 from pydantic import BaseSettings, BaseModel
 from aiogram import Bot, Dispatcher
 from aiogram.types.message import ParseMode
@@ -43,3 +44,4 @@ settings = Settings(
 bot = Bot(token=settings.tokens.token, parse_mode=ParseMode.MARKDOWN)
 storage = MemoryStorage()
 dispatcher = Dispatcher(bot, loop=asyncio.get_event_loop(), storage=storage)
+logger = logger

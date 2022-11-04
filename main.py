@@ -2,11 +2,14 @@ import aiogram
 
 import handlers
 
-from TFinances.core.settings import dispatcher
+from TFinances.core.settings import dispatcher, logger
+from TFinances.core.utilities import configure_db
 
 
 async def on_startup(dp: aiogram.Dispatcher):
-    print("\nBot online \n-----------")
+    await configure_db()
+
+    logger.info(f"({dp.bot.id}) The bot is online.")
 
 
 if __name__ == '__main__':
