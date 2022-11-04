@@ -3,6 +3,8 @@ from pathlib import Path
 
 from tortoise import Tortoise
 
+from TFinances.applications.user import UserCRUD
+from TFinances.applications.user.schemas import UserSchema
 from TFinances.core.settings import settings, logger
 
 db = settings.database
@@ -26,3 +28,34 @@ async def configure_db():
 
     await Tortoise.generate_schemas()
     logger.debug("Schemas generated.")
+
+
+# async def test():
+#     print(
+#         (
+#             await UserCRUD.create(
+#                 UserSchema(
+#                     telegram_id=1370280956,
+#                     lang="ruRU"
+#                 )
+#             )
+#         ).lang
+#     )
+#     print(
+#         (
+#             await UserCRUD.get_by_telegram_id(1370280956)
+#         ).lang
+#     )
+#     print(
+#         (
+#             await UserCRUD.update(
+#                 UserSchema(
+#                     telegram_id=1370280956,
+#                     lang="usUS"
+#                 )
+#             )
+#         ).lang
+#     )
+#     print(
+#         await UserCRUD.delete(1370280956)
+#     )
