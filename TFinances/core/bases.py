@@ -17,14 +17,24 @@ class BaseCRUD:
     model: Model
 
     @classmethod
-    async def create(cls, payload: BaseModel):
-        return cls.model.create(**payload.dict())
+    async def create(cls, payload: BaseModel) -> "model":
+        return await cls.model.create(**payload.dict())
 
     @classmethod
     async def get_by(cls, **kwargs):
         logger.debug(f"Getting `{cls.model.__name__}` by {kwargs}")
         try:
             return await cls.model.get_or_none(**kwargs)
+
+        except DoesNotExist as e:
+            logger.error(e)
+            raise e
+
+    @classmethod
+    async def filter_by(cls, **kwargs):
+        logger.debug(f"Filtering `'{cls.model.__name__}'s` by {kwargs}")
+        try:
+            return await cls.model.filter(**kwargs)
 
         except DoesNotExist as e:
             logger.error(e)
