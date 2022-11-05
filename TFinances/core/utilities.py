@@ -60,52 +60,52 @@ async def configure_db():
 #     print(
 #         await UserCRUD.delete(1370280956)
 #     )
-async def test():
-    await UserCRUD.create(UserSchema(telegram_id=1370280956, lang="enUS"))
-    await CategoryCRUD.create(
-        CategorySchema(
-            name="a1",
-            description="asd",
-            user_id=1
-        )
-    )
-    await CategoryCRUD.create(
-        CategorySchema(
-            name="a2",
-            description="asdasd",
-            user_id=1
-        )
-    )
-    await CategoryCRUD.create(
-        CategorySchema(
-            name="a3",
-            description="asdasdasd",
-            user_id=1
-        )
-    )
-    await CategoryCRUD.create(
-        CategorySchema(
-            name="a4",
-            description="asdasdasdasd",
-            user_id=1
-        )
-    )
-
-    user = await UserCRUD.get_by_telegram_id(1370280956)
-    print(
-        (
-            await CategoryCRUD.get_by_user(user)
-        )
-    )
-    print(
-        (
-            await CategoryCRUD.update_by(
-                CategorySchema(
-                    name="test",
-                    description="testdesc",
-                    user_id=None
-                ),
-                id=2
-            )
-        )
-    )
+# async def test():
+#     await UserCRUD.create(UserSchema(telegram_id=1370280956, lang="enUS"))
+#     await CategoryCRUD.create(
+#         CategorySchema(
+#             name="a1",
+#             description="asd",
+#             user_id=1
+#         )
+#     )
+#     await CategoryCRUD.create(
+#         CategorySchema(
+#             name="a2",
+#             description="asdasd",
+#             user_id=1
+#         )
+#     )
+#     await CategoryCRUD.create(
+#         CategorySchema(
+#             name="a3",
+#             description="asdasdasd",
+#             user_id=1
+#         )
+#     )
+#     await CategoryCRUD.create(
+#         CategorySchema(
+#             name="a4",
+#             description="asdasdasdasd",
+#             user_id=1
+#         )
+#     )
+#
+#     user = await UserCRUD.get_by_telegram_id(1370280956)
+#     print(
+#         (
+#             await CategoryCRUD.get_by_user(user)
+#         )
+#     )
+#     print(
+#         (
+#             await CategoryCRUD.update_by(
+#                 CategorySchema(
+#                     name="test",
+#                     description="testdesc",
+#                     user_id=None
+#                 ),
+#                 id=2
+#             )
+#         )
+#     )
