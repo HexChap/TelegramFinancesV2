@@ -1,1 +1,2 @@
-from .user_crud import UserCRUD
+from .crud import UserCRUD
+from .schemas import UserSchema

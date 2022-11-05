@@ -22,9 +22,9 @@ class BaseCRUD:
 
     @classmethod
     async def get_by(cls, **kwargs):
-        logger.debug(f"Getting {cls.__name__} by {kwargs}")
+        logger.debug(f"Getting `{cls.model.__name__}` by {kwargs}")
         try:
-            return await cls.model.get(**kwargs)
+            return await cls.model.get_or_none(**kwargs)
 
         except DoesNotExist as e:
             logger.error(e)
