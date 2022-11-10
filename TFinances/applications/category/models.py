@@ -10,7 +10,7 @@ if TYPE_CHECKING:
 
 class Category(AbstractModel):
     name = fields.CharField(max_length=16)
-    description = fields.CharField(max_length=160)
+    description = fields.CharField(max_length=120, null=True)
 
     user: fields.ForeignKeyRelation["User"] = fields.ForeignKeyField(
         "models.User", related_name="categories"

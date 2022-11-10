@@ -15,7 +15,7 @@ class UserCRUD(BaseCRUD):
         return await cls.get_by(id=id)
     
     @classmethod
-    async def get_by_telegram_id(cls, telegram_id: int) -> User:
+    async def get_by_telegram_id(cls, telegram_id: int) -> User | None:
         return await cls.get_by(telegram_id=telegram_id)
 
     @classmethod
