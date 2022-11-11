@@ -3,9 +3,6 @@ from pathlib import Path
 
 from tortoise import Tortoise
 
-from TFinances.applications.category import CategoryCRUD, CategorySchema
-from TFinances.applications.user import UserCRUD
-from TFinances.applications.user.schemas import UserSchema
 from TFinances.core.settings import settings, logger
 
 db = settings.database
@@ -32,6 +29,7 @@ async def configure_db():
 
 
 # async def test():
+#     from TFinances.applications.user import UserCRUD, UserSchema
 #     print(
 #         (
 #             await UserCRUD.create(
@@ -61,6 +59,8 @@ async def configure_db():
 #         await UserCRUD.delete(1370280956)
 #     )
 # async def test():
+#     from TFinances.applications.user import UserCRUD, UserSchema
+#     from TFinances.applications.category import CategoryCRUD, CategorySchema
 #     await UserCRUD.create(UserSchema(telegram_id=1370280956, lang="enUS"))
 #     await CategoryCRUD.create(
 #         CategorySchema(
@@ -109,3 +109,36 @@ async def configure_db():
 #             )
 #         )
 #     )
+async def test():
+    from TFinances.applications.user import UserCRUD, UserSchema
+    from TFinances.applications.category import CategoryCRUD, CategorySchema
+    from TFinances.applications.expenses import ExpenseCRUD, ExpenseSchema
+
+    # await UserCRUD.create_by(UserSchema(telegram_id=1370280956, lang="enUS"))
+    # c = await CategoryCRUD.create_by(
+    #     CategorySchema(
+    #         name="a1",
+    #         description="asd",
+    #         user_id=1
+    #     )
+    # )
+    #
+    # await ExpenseCRUD.create_by(
+    #     ExpenseSchema(
+    #         price=12.99,
+    #         note="note",
+    #         user_id=1,
+    #         category_id=1
+    #     )
+    # )
+    # await ExpenseCRUD.create_by(
+    #     ExpenseSchema(
+    #         price=6.99,
+    #         note="note2",
+    #         user_id=1,
+    #         category_id=4
+    #     )
+    # )
+
+    # es = await ExpenseCRUD.get_all_by(user_id=1)
+    # print([e.note for e in es])

@@ -17,7 +17,7 @@ class BaseCRUD:
     model: Model
 
     @classmethod
-    async def create(cls, payload: BaseModel) -> "model":
+    async def create_by(cls, payload: BaseModel) -> "model":
         return await cls.model.create(**payload.dict())
 
     @classmethod
@@ -32,7 +32,7 @@ class BaseCRUD:
 
     @classmethod
     async def filter_by(cls, **kwargs):
-        logger.debug(f"Filtering `'{cls.model.__name__}'s` by {kwargs}")
+        logger.debug(f"Filtering {cls.model.__name__}s by {kwargs}")
         try:
             return await cls.model.filter(**kwargs)
 

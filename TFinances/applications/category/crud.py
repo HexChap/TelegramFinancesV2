@@ -11,9 +11,5 @@ class CategoryCRUD(BaseCRUD):
     model = Category
 
     @classmethod
-    async def create(cls, payload: CategorySchema) -> Category:
-        return await cls.model.create(**payload.dict())
-
-    @classmethod
-    async def get_by_user(cls, user: "User") -> list[Category]:
+    async def get_all_by_user(cls, user: "User") -> list[Category]:
         return await cls.filter_by(user_id=user.id)

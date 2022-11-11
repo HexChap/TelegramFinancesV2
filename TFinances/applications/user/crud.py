@@ -7,10 +7,6 @@ class UserCRUD(BaseCRUD):
     model = User
 
     @classmethod
-    async def create(cls, payload: UserSchema) -> User:
-        return await cls.model.create(**payload.dict())
-
-    @classmethod
     async def get_by_id(cls, id: int) -> User:
         return await cls.get_by(id=id)
     
