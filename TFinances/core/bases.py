@@ -32,7 +32,7 @@ class BaseCRUD:
 
     @classmethod
     async def filter_by(cls, **kwargs):
-        logger.debug(f"Filtering {cls.model.__name__}s by {kwargs}")
+        logger.debug(f"Filtering {cls.model.__name__} instances by {kwargs}")
         try:
             return await cls.model.filter(**kwargs)
 

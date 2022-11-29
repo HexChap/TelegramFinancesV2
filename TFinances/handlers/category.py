@@ -99,7 +99,7 @@ async def _finish(msg: types.Message, state: FSMContext):
                 user_id=user.id
             )
 
-        await CategoryCRUD.create(schema)
+        await CategoryCRUD.create_by(schema)
         logger.debug(f"Category *{schema.name}* created for user_id={user.id}. chat_id={state.chat}")
 
     await state.finish()

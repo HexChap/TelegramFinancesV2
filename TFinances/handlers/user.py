@@ -11,7 +11,7 @@ async def me(msg: types.Message):
     user_id = msg.from_user.id
 
     if not (user := await UserCRUD.get_by_telegram_id(user_id)):
-        user = await UserCRUD.create(
+        user = await UserCRUD.create_by(
             UserSchema(
                 telegram_id=user_id,
                 lang=msg.from_user.language_code
@@ -24,3 +24,5 @@ async def me(msg: types.Message):
         f"⚰ Telegram ID: {user_id}\n"
         f"🪪 ID: {user.id}"
     )
+
+    return user
