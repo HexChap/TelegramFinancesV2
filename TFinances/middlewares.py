@@ -1,13 +1,20 @@
-from aiogram import Dispatcher
+from aiogram import Dispatcher, types
 from aiogram.dispatcher.handler import current_handler
 from aiogram.dispatcher.middlewares import BaseMiddleware
 
+from TFinances.applications import UserCRUD
 from TFinances.core import logger
+from TFinances.handlers import me
 
 
-class LogMiddleware(BaseMiddleware):
-    async def on_process_message(self, _, __):
+class HandlerMiddleware(BaseMiddleware):
+    async def on_process_message(self, msg: types.Message, __):
         handler = current_handler.get()
+
+        if not (await UserCRUD.get_by_telegram_id(t_id := msg.from_user.id)):
+            logger.debug(f"Creating user with t_id={t_id} because was not found.")
+            await me(msg, is_inner=True)
+            return
 
         if any(states := await self._get_states(handler)) \
                 and not (['*'] == states):

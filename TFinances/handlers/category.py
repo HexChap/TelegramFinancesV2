@@ -16,10 +16,6 @@ C_DESC_PATTERN = re.compile(r"^.{2,120}$")
 # region add_category
 @dispatcher.message_handler(state="*", commands=["add_category"])
 async def add_category(msg: types.Message):
-    if not (await UserCRUD.get_by_telegram_id(t_id := msg.from_user.id)):
-
-        await me(msg)
-
     await states.CategorySG.name.set()
 
     await msg.reply(
@@ -120,10 +116,7 @@ async def _finish(msg: types.Message, state: FSMContext):
 # region delete_category
 @dispatcher.message_handler(commands="delete_category")
 async def delete_category(msg: types.Message):
-    if not (user := await UserCRUD.get_by_telegram_id(t_id := msg.from_user.id)):
-        logger.debug(f"Creating user with t_id={t_id} because was not found.")
-        await me(msg)
-        return
+    user = await UserCRUD.get_by_telegram_id(t_id := msg.from_user.id)
 
     if not (categories := await CategoryCRUD.get_all_by_user_id(user.id)):
         logger.debug(f"No categories found for user with t_id={t_id}. Returning")
@@ -152,7 +145,6 @@ async def process_category_to_del(msg: types.Message, state: FSMContext):
     )
 
     await state.finish()
-    logger.debug(f"State closed. chat_id={state.chat}")
 # endregion delete_category
 
 

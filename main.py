@@ -2,7 +2,8 @@ import aiogram
 
 import TFinances.handlers
 
-from TFinances.core import dispatcher, logger, set_middlewares
+from TFinances.middlewares import set_middlewares
+from TFinances.core import dispatcher, logger
 from TFinances.core.utilities import configure_db
 
 

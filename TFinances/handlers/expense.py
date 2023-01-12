@@ -9,11 +9,10 @@ from .user import me
 async def my_expenses(msg: types.Message):
     resp = "📑 All wastes\n\n"
 
-    if not (user := await UserCRUD.get_by_telegram_id(msg.from_user.id)):
-        user = await me(msg)
+    user_id = (await UserCRUD.get_by_telegram_id(msg.from_user.id)).id
 
-    expenses = await ExpenseCRUD.get_all_by(user_id=user.id)
-    user_cats = await CategoryCRUD.filter_by(user_id=user.id)
+    expenses = await ExpenseCRUD.get_all_by(user_id=user_id)
+    user_cats = await CategoryCRUD.filter_by(user_id=user_id)
 
     for category in user_cats:
         total = sum(
