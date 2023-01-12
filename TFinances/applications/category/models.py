@@ -9,7 +9,7 @@ if TYPE_CHECKING:
 
 
 class Category(AbstractModel):
-    name = fields.CharField(max_length=16)
+    name = fields.CharField(max_length=16, unique=True)
     description = fields.CharField(max_length=120, null=True)
 
     user: fields.ForeignKeyRelation["User"] = fields.ForeignKeyField(

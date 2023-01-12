@@ -1,8 +1,14 @@
 from aiogram import types, filters
 from aiogram.dispatcher import FSMContext
 
-from TFinances.core import dispatcher, logger
+from TFinances.core import dispatcher, logger, settings
 from .user import me
+
+
+@dispatcher.message_handler(commands=["check"])
+async def check(msg: types.Message):
+    if msg.from_user.id == settings.misc.owner_id:
+        ...
 
 
 @dispatcher.message_handler(commands=["start"])

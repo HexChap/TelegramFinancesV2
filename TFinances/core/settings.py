@@ -1,4 +1,5 @@
 import asyncio
+import sys
 from pathlib import Path
 
 from loguru import logger
@@ -23,6 +24,7 @@ class Tokens(BaseSettings):
 
 class Misc(BaseSettings):
     owner_id: int
+    logger_level: str
 
 
 class Settings(BaseModel):
@@ -41,7 +43,10 @@ settings = Settings(
     tokens=_tokens,
     misc=_misc
 )
-bot = Bot(token=settings.tokens.token, parse_mode=ParseMode.MARKDOWN)
+bot = Bot(token=settings.tokens.token)
 storage = MemoryStorage()
 dispatcher = Dispatcher(bot, loop=asyncio.get_event_loop(), storage=storage)
-logger = logger
+
+if (level := settings.misc.logger_level) != "DEBUG":
+    logger.remove()
+    logger.add(sys.stderr, level=level)

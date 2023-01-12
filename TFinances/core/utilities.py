@@ -22,10 +22,10 @@ async def configure_db():
     logger.debug(f"Found models: {models}")
 
     await Tortoise.init(db_url=DB_URL, modules={"models": models})
-    logger.debug("Tortoise initialized.")
+    logger.debug("Tortoise initialized")
 
     await Tortoise.generate_schemas()
-    logger.debug("Schemas generated.")
+    logger.debug("Schemas generated")
 
 
 # async def test():

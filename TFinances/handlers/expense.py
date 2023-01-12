@@ -24,7 +24,7 @@ async def my_expenses(msg: types.Message):
         )
         resp += f"    ‣  *{category.name}:* `{total}`\n"
 
-    await msg.reply(resp)
+    await msg.reply(resp, parse_mode=types.message.ParseMode.MARKDOWN)
 
 
 @dispatcher.message_handler(commands=["delete_expense"])

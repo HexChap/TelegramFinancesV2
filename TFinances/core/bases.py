@@ -1,3 +1,4 @@
+from aiogram.types import ReplyKeyboardMarkup, KeyboardButton
 from pydantic import BaseModel
 from tortoise import Model, fields
 from tortoise.exceptions import DoesNotExist
@@ -59,3 +60,15 @@ class BaseCRUD:
         instance = await cls.get_by(**kwargs)
 
         await instance.delete()
+
+
+def create_reply_keyboard_by(iterable) -> ReplyKeyboardMarkup:
+    kb = ReplyKeyboardMarkup(
+        resize_keyboard=True,
+        one_time_keyboard=True
+    )
+
+    for item in iterable:
+        kb.add(KeyboardButton(str(item)))
+
+    return kb
