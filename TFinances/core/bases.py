@@ -19,10 +19,14 @@ class BaseCRUD:
 
     @classmethod
     async def create_by(cls, payload: BaseModel) -> "model":
-        return await cls.model.create(**payload.dict())
+        instance = await cls.model.create(**payload.dict())
+
+        logger.debug(f"New {str(instance)} id={instance.id} was created.")
+
+        return instance
 
     @classmethod
-    async def get_by(cls, **kwargs):
+    async def get_by(cls, **kwargs) -> "model":
         logger.debug(f"Getting `{cls.model.__name__}` by {kwargs}")
         try:
             return await cls.model.get_or_none(**kwargs)
@@ -32,7 +36,7 @@ class BaseCRUD:
             raise e
 
     @classmethod
-    async def filter_by(cls, **kwargs):
+    async def filter_by(cls, **kwargs) -> list["model"]:
         logger.debug(f"Filtering {cls.model.__name__} instances by {kwargs}")
         try:
             return await cls.model.filter(**kwargs)
@@ -42,7 +46,7 @@ class BaseCRUD:
             raise e
 
     @classmethod
-    async def update_by(cls, payload: BaseModel, **kwargs):
+    async def update_by(cls, payload: BaseModel, **kwargs) -> "model":
         instance = await cls.get_by(**kwargs)
 
         await instance.update_from_dict(
@@ -51,24 +55,15 @@ class BaseCRUD:
                 if value is not None
             }
         ).save()
-        logger.debug(f"{str(instance)} was updated.")
+        logger.debug(f"{str(instance)} id={instance.id} was updated.")
 
         return instance
 
     @classmethod
-    async def delete_by(cls, **kwargs):
+    async def delete_by(cls, **kwargs) -> None:
         instance = await cls.get_by(**kwargs)
+
+        logger.debug(f"Deleting {str(instance)} id={instance.id}")
 
         await instance.delete()
 
-
-def create_reply_keyboard_by(iterable) -> ReplyKeyboardMarkup:
-    kb = ReplyKeyboardMarkup(
-        resize_keyboard=True,
-        one_time_keyboard=True
-    )
-
-    for item in iterable:
-        kb.add(KeyboardButton(str(item)))
-
-    return kb
